@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171b1a">
+    <title>Bernd Knauer – Provinzlegende</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Ein Provinz-RPG</p>
+          <h1>Bernd Knauer</h1>
+          <p class="subtitle">Deine Straße. Deine Gang. Laboe ist fällich.</p>
+        </div>
+        <button class="quiet-button" id="reset-button" type="button">Neues Spiel</button>
+      </header>
+
+      <section class="status-grid" aria-label="Spielstatus">
+        <article class="status-card">
+          <span class="status-label">Rang</span>
+          <strong id="rank">Mitläufer</strong>
+          <span class="status-note" id="wins">0 Siege</span>
+        </article>
+        <article class="status-card">
+          <span class="status-label">Level</span>
+          <strong id="level">1</strong>
+          <div class="progress-track" aria-label="Erfahrung bis zum nächsten Level">
+            <div class="progress-fill" id="xp-bar"></div>
+          </div>
+          <span class="status-note" id="xp-label">0 / 50 XP</span>
+        </article>
+        <article class="status-card">
+          <span class="status-label">Kohle</span>
+          <strong id="cash">0 €</strong>
+          <span class="status-note">Jeder Euro zählt.</span>
+        </article>
+        <article class="status-card">
+          <span class="status-label">Zustand</span>
+          <strong id="health">100 / 100</strong>
+          <div class="progress-track health-track" aria-label="Gesundheit">
+            <div class="progress-fill" id="health-bar"></div>
+          </div>
+        </article>
+      </section>
+
+      <div class="main-grid">
+        <section class="panel story-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Der Auftrag</p>
+              <h2>Die Vorherrschaft am Kanal</h2>
+            </div>
+            <span class="day-badge" id="day">Tag 1</span>
+          </div>
+          <p class="story-copy">
+            Zwischen Bushaltestelle und Bolzplatz wächst dein Ruf. Stell eine schlagkräftige
+            Truppe zusammen, verdien dir Respekt und zeig den Laboe Blue Brothers, wem die
+            Provinz gehört.
+          </p>
+          <div class="objective" id="objective"></div>
+
+          <div class="action-grid">
+            <button class="action-button work-button" id="work-button" type="button">
+              <span class="button-icon" aria-hidden="true">€</span>
+              <span><strong>Nebenjob annehmen</strong><small>+20 € · ein Tag vergeht</small></span>
+            </button>
+            <button class="action-button fight-button" id="fight-button" type="button">
+              <span class="button-icon" aria-hidden="true">✦</span>
+              <span><strong>Rivalen herausfordern</strong><small>Verdiene XP, Geld und Respekt</small></span>
+            </button>
+            <button class="action-button rest-button" id="rest-button" type="button">
+              <span class="button-icon" aria-hidden="true">♥</span>
+              <span><strong>Durchatmen</strong><small>Stellt 30 Gesundheit wieder her</small></span>
+            </button>
+          </div>
+
+          <section class="battle-panel" id="battle-panel" hidden aria-live="polite">
+            <div class="battle-heading">
+              <div>
+                <p class="eyebrow">Ärger auf der Straße</p>
+                <h3 id="enemy-name">Gegner</h3>
+              </div>
+              <span class="enemy-health" id="enemy-health">0 / 0</span>
+            </div>
+            <div class="progress-track enemy-track" aria-label="Gegnerische Gesundheit">
+              <div class="progress-fill" id="enemy-bar"></div>
+            </div>
+            <div class="battle-actions">
+              <button class="primary-button" id="attack-button" type="button">Angreifen</button>
+              <button class="secondary-button" id="guard-button" type="button">Abwehren</button>
+              <button class="secondary-button" id="escape-button" type="button">Abhauen</button>
+            </div>
+          </section>
+
+          <section class="boss-panel" id="boss-panel">
+            <div>
+              <p class="eyebrow">Endgegner</p>
+              <h3>Laboe Blue Brothers</h3>
+              <p id="boss-copy">Sammle fünf Siege, dann kannst du ihren Anführer herausfordern.</p>
+            </div>
+            <button class="boss-button" id="boss-button" type="button" disabled>Showdown</button>
+          </section>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel">
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">Dein Setup</p>
+                <h2>Ausrüstung</h2>
+              </div>
+            </div>
+            <ul class="gear-list" id="gear-list"></ul>
+          </section>
+
+          <section class="panel shop-panel">
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">Hinterhof-Basar</p>
+                <h2>Für die Gang</h2>
+              </div>
+            </div>
+            <div class="shop-list" id="shop-list"></div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="panel log-panel">
+        <div class="section-heading compact-heading">
+          <div>
+            <p class="eyebrow">Was bisher geschah</p>
+            <h2>Dein Viertel</h2>
+          </div>
+        </div>
+        <ol class="log-list" id="log-list" aria-live="polite"></ol>
+      </section>
+      <footer>Ein kleines, eigenständiges Browser-RPG · Dein Spielstand bleibt auf diesem Gerät.</footer>
+    </main>
+  </body>
+</html>
