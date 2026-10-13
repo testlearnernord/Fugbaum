@@ -4,6 +4,7 @@ const SHOP = [
   { id: "jacke", name: "Lederjacke", kind: "Schutz", cost: 45, defense: 3 },
   { id: "kette", name: "Schwere Kette", kind: "Waffe", cost: 80, attack: 8 },
   { id: "weste", name: "Motorradweste", kind: "Schutz", cost: 100, defense: 7 },
+  { id: "Knarre", name: "Knarre", kind: "Waffe", cost: 200, attack: 13}
 ];
 const RANKS = [
   { wins: 0, name: "Mitläufer" },
@@ -15,6 +16,7 @@ const ENEMIES = [
   { name: "Timo vom Bolzplatz", health: 35, attack: 8, xp: 25, cash: 16 },
   { name: "Die Bushaltestellen-Crew", health: 46, attack: 10, xp: 32, cash: 22 },
   { name: "Mats mit dem Mofa", health: 55, attack: 12, xp: 40, cash: 28 },
+  { name: "Hans der Hausmeister", health: 100, attack: 23, xp: 60, cash: 20}
 ];
 const BOSS = {
   name: "Laboe Blue Brothers – Anführer",
