@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 460" role="img" aria-labelledby="title desc">
+  <title id="title">Stilisierte Illustration von Bernd Knauer</title>
+  <desc id="desc">Gezeichnetes Porträt mit dunklem Vokuhila, Schnurrbart und grauem Sweatshirt vor Kieler Hafenkulisse.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#596e68"/>
+      <stop offset="1" stop-color="#273a35"/>
+    </linearGradient>
+    <linearGradient id="shirt" x2="0" y2="1">
+      <stop stop-color="#9ba59c"/>
+      <stop offset="1" stop-color="#5d6c65"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="460" fill="url(#sky)"/>
+  <circle cx="485" cy="77" r="36" fill="#e6a35a" opacity=".75"/>
+  <path d="M0 293h600v167H0z" fill="#243a38"/>
+  <path d="M0 332h600" stroke="#71847b" stroke-width="4" opacity=".6"/>
+  <path d="M74 309v-73h18v73m8-43h92m-77-21h68m200 64v-96h13v96m7-54h119m-102-26h84" fill="none" stroke="#536660" stroke-width="7" opacity=".75"/>
+  <path d="M115 460c12-91 65-143 157-150 94 7 150 59 163 150" fill="url(#shirt)"/>
+  <path d="M233 307v-52h81v57l-38 35z" fill="#c58b68"/>
+  <path d="M211 170c-4-61 35-104 91-104 57 0 94 40 92 108l-8 84c-7 67-55 105-89 105-42 0-81-42-87-103z" fill="#c98e69"/>
+  <path d="M208 208c-38-38-27-111 2-142 16-18 41-31 70-35-25 18-36 34-39 57 38-40 92-49 142-21 27 15 44 52 34 98-8 34-18 50-20 66-12-20-12-37-10-62-28 3-54-13-66-34-23 28-56 45-99 48-1 36 4 75 15 101-40-18-59-49-62-85-2-28 9-57 33-74z" fill="#382c29"/>
+  <path d="M224 183c-15 36-11 111 4 142-34-21-48-55-43-101 4-30 17-55 39-69z" fill="#382c29"/>
+  <path d="M235 201c17-10 34-11 51-3m42-3c18-7 36-4 50 6" fill="none" stroke="#49342d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M242 217c8-4 17-4 24 0m72-3c8-4 16-3 23 1" fill="none" stroke="#302a27" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="254" cy="220" rx="4" ry="5" fill="#252825"/>
+  <ellipse cx="351" cy="220" rx="4" ry="5" fill="#252825"/>
+  <path d="M302 221c-3 23-17 44-10 50 6 5 18 3 24 0" fill="none" stroke="#9b634f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M267 274c11-15 22-18 35-14 13-4 25-2 37 11-4 16-18 25-37 26-18 0-30-8-35-23z" fill="#50342e"/>
+  <path d="M290 282h22" stroke="#e4d0b7" stroke-width="5" stroke-linecap="round"/>
+  <path d="M181 361c47-25 92-34 129-29m32 1c27 3 56 13 82 30" fill="none" stroke="#d1d5c8" stroke-width="4" opacity=".35"/>
+  <text x="28" y="420" fill="#eef0df" font-family="sans-serif" font-size="15" letter-spacing="4">KIEL · FREI GEZEICHNET</text>
+</svg>

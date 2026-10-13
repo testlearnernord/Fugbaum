@@ -2,6 +2,10 @@
 
 Ein kleines, direkt im Browser spielbares Bernd-Knauer-RPG.
 
+Die Seite enthält einen quellenverlinkten historischen Hintergrund, vom Nutzer
+bereitgestellte Bilder sowie eigens gezeichnete SVG-Illustrationen. Die ergänzte
+Mini-Story ist ausdrücklich fiktional und keine Biografie.
+
 ## Spielen
 
 `index.html` im Browser öffnen oder im Projektverzeichnis einen lokalen Server starten:

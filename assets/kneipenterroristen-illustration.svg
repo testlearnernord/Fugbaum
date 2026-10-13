@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Frei gestaltete Illustration einer Kieler Freundesclique</title>
+  <desc id="desc">Vier unterschiedlich gekleidete Freunde sitzen am Kai vor Kränen und Hafenlichtern; keine konkreten Personen sind dargestellt.</desc>
+  <rect width="720" height="420" fill="#344944"/>
+  <path d="M0 218h720v202H0z" fill="#243532"/>
+  <circle cx="612" cy="74" r="31" fill="#e6a35a" opacity=".8"/>
+  <path d="M0 257h720" stroke="#71847b" stroke-width="3" opacity=".7"/>
+  <path d="M60 253V80h15v173M68 99h177M90 99v73h125m-78-74 69 74m210 81V59h13v194m6-169h164m-137 2v73h117m-83-74 62 74" fill="none" stroke="#839187" stroke-width="7" opacity=".65"/>
+  <path d="M0 281h720" stroke="#d29156" stroke-width="3" opacity=".5"/>
+  <path d="M54 420c11-92 57-135 119-135s110 45 119 135" fill="#778372"/>
+  <path d="M89 285c-15-33-13-82 4-108 15-23 41-30 73-27 34 4 57 25 59 60 2 31-5 53-13 71-16 20-35 32-64 32-26 0-45-10-59-28z" fill="#c28c69"/>
+  <path d="M81 231c-2-65 27-101 81-103 52-2 77 32 74 89-17-3-27-20-30-39-18 24-54 33-105 27-2 34 2 60 10 82-25-16-33-33-30-56z" fill="#49403a"/>
+  <path d="M115 215h16m46-2h16" stroke="#342e29" stroke-width="5" stroke-linecap="round"/>
+  <path d="M142 267c14-14 33-16 49-2-8 15-18 21-29 21-10-2-16-7-20-19z" fill="#54372e"/>
+  <path d="M310 420c4-75 40-118 92-118s83 43 91 118" fill="#8b6043"/>
+  <path d="M342 304c-12-24-13-64 0-88 13-24 36-33 64-31 32 2 50 21 52 53 2 31-8 55-23 74-14 12-27 17-44 17-22 0-38-8-49-25z" fill="#d0a17b"/>
+  <path d="M332 253c-1-60 25-91 68-92 47-1 69 33 62 89-16-8-23-20-25-40-24 19-59 26-102 22z" fill="#59443a"/>
+  <path d="M360 238h14m43 0h14" stroke="#352e2a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M381 278c12-9 25-9 36 1" fill="none" stroke="#805947" stroke-width="4" stroke-linecap="round"/>
+  <path d="M485 420c10-85 45-126 101-126 51 0 84 43 93 126" fill="#596c72"/>
+  <path d="M522 306c-14-28-12-69 4-93 14-21 37-29 64-26 30 4 47 25 47 56 0 28-9 51-23 68-15 15-31 21-49 19-18-2-33-10-43-24z" fill="#b77f61"/>
+  <path d="M511 250c-4-64 25-94 69-94 47 0 68 33 61 84-18-3-32-14-38-34-16 19-43 29-85 28z" fill="#352e2b"/>
+  <path d="M536 242h14m43 1h14" stroke="#332a25" stroke-width="5" stroke-linecap="round"/>
+  <path d="M552 276c14 8 28 9 42 2" fill="none" stroke="#754d41" stroke-width="4" stroke-linecap="round"/>
+  <path d="M112 365h493" stroke="#d8d3bb" stroke-width="5" opacity=".3"/>
+  <text x="24" y="395" fill="#f2efe7" font-family="sans-serif" font-size="13" letter-spacing="3">KIELER HAFEN · FREIE ILLUSTRATION</text>
+</svg>
