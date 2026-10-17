@@ -653,7 +653,200 @@ footer {
   text-align: center;
 }
 
+.world-panel,
+.collection-panel {
+  margin-bottom: 16px;
+}
+
+.district-nav,
+.walk-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.district-nav [aria-pressed="true"] {
+  border-color: var(--lime);
+  color: var(--lime);
+  opacity: 1;
+}
+
+.exploration-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(180px, 1fr);
+  gap: 20px;
+}
+
+.world-map {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #121c1a;
+  touch-action: manipulation;
+}
+
+.world-map:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.map-tile {
+  display: grid;
+  aspect-ratio: 1;
+  min-width: 0;
+  place-items: center;
+  font-size: clamp(0.65rem, 2.5vw, 1.4rem);
+}
+
+.building {
+  border: 2px solid #292521;
+  background: repeating-linear-gradient(0deg, #654b3e 0 6px, #523c32 6px 8px);
+}
+
+.wellingdorf .building {
+  background: #58616a;
+  border-color: #3a4149;
+}
+
+.gaarden .building {
+  background: #80684c;
+  border-color: #554333;
+}
+
+.laboe .building {
+  background: #a18f73;
+  border-color: #706352;
+}
+
+.water {
+  background: repeating-linear-gradient(0deg, #234e5a 0 7px, #2c5e68 7px 10px);
+}
+
+.street {
+  background: #414840;
+  color: #f4da9b;
+}
+
+.laboe .street {
+  background: #655f4a;
+}
+
+.map-stop {
+  color: var(--lime);
+  background: #334530;
+}
+
+.player {
+  z-index: 1;
+  outline: 2px solid var(--lime);
+  outline-offset: -2px;
+  background: #79904b;
+}
+
+.player img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-legend,
+.world-hint {
+  margin: 10px 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.world-hint {
+  min-height: 3.2em;
+  color: var(--lime);
+}
+
+.bernd-radio {
+  align-self: start;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #1b211f;
+}
+
+.bernd-radio img {
+  width: 100%;
+  max-height: 200px;
+  margin-bottom: 14px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+#bernd-saying {
+  min-height: 4em;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.bernd-radio small,
+.memory-card small {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.memory-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.memory-card {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #1b211f;
+}
+
+.memory-card img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.memory-card figcaption {
+  padding: 12px;
+  font-size: 0.8rem;
+}
+
+.memory-card p {
+  margin: 10px 0 0;
+  color: var(--lime);
+  line-height: 1.5;
+}
+
 @media (max-width: 760px) {
+  .exploration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bernd-radio img {
+    width: 100px;
+    float: left;
+    margin-right: 15px;
+  }
+
+  .bernd-radio small {
+    clear: both;
+  }
+
   .game-shell {
     width: min(100% - 28px, 580px);
     padding-top: 30px;
