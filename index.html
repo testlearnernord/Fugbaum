@@ -47,6 +47,58 @@
         </article>
       </section>
 
+      <section class="panel world-panel" aria-labelledby="district-name">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Mit Bernd unterwegs · frei erfundene Spielwelt</p>
+            <h2 id="district-name">Ellerbek</h2>
+          </div>
+          <span class="story-tag" id="collection-count">0 / 12 Stationen entdeckt</span>
+        </div>
+        <p id="district-copy" class="story-copy"></p>
+        <nav class="district-nav" aria-label="Zwischen Orten reisen">
+          <button class="secondary-button" type="button" data-travel="0">Ellerbek</button>
+          <button class="secondary-button" type="button" data-travel="1">Wellingdorf</button>
+          <button class="secondary-button" type="button" data-travel="2">Gaarden</button>
+          <button class="secondary-button" type="button" data-travel="3">Laboe</button>
+        </nav>
+        <div class="exploration-grid">
+          <div>
+            <div id="world-map" class="world-map" tabindex="0" role="group" aria-describedby="world-controls world-hint"></div>
+            <p class="map-legend">★ Bild &amp; Spruch · € Nebenjob · ♥ Pause · ⚑ Rivalen · ↔ Ortswechsel</p>
+            <p id="world-controls" class="map-legend">Karte anklicken, dann <strong>WASD / Pfeiltasten</strong> zum Laufen, <strong>E / Leertaste</strong> zum Interagieren. Gebäude und Wasser sind nicht begehbar.</p>
+            <div class="walk-controls" aria-label="Bewegung und Interaktion">
+              <button class="secondary-button" data-move="0,-1" type="button" aria-label="Nach oben gehen">↑ W</button>
+              <button class="secondary-button" data-move="-1,0" type="button" aria-label="Nach links gehen">← A</button>
+              <button class="secondary-button" data-move="0,1" type="button" aria-label="Nach unten gehen">↓ S</button>
+              <button class="secondary-button" data-move="1,0" type="button" aria-label="Nach rechts gehen">→ D</button>
+              <button class="primary-button" id="interact-button" type="button">Interagieren · E</button>
+            </div>
+            <p id="world-hint" class="world-hint" aria-live="polite"></p>
+          </div>
+          <aside class="bernd-radio" aria-label="Bernds Spielspruch">
+            <img src="assets/bernd-knauer-archiv-2.png" alt="Bereitgestellte Nahaufnahme von Bernd Knauer">
+            <p class="eyebrow">Bernd unterwegs</p>
+            <p id="bernd-saying"></p>
+            <button class="secondary-button" id="saying-button" type="button">Nächster Spielspruch</button>
+            <small>Eigene fiktive Dialoge, keine Filmzitate. Karten sind schematisch, keine echten Stadtpläne.</small>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel collection-panel" aria-labelledby="collection-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">12 Szenenkarten · 4 vorhandene Fotomotive</p>
+            <h2 id="collection-title">Bernds Viertelalbum</h2>
+          </div>
+          <span class="story-tag fiction-tag">Eigene Spieltexte</span>
+        </div>
+        <p class="tale-intro">Besuche die Sterne in allen vier Orten und interagiere mit ihnen: Jede neue Station bringt einmalig 5 XP und 5 €. Die Bilder werden für verschiedene Spielkarten wiederverwendet, nicht als neue historische Aufnahmen ausgegeben.</p>
+        <div id="memory-gallery" class="memory-gallery"></div>
+        <p class="rights-note">Vorhandene, vom Nutzer bereitgestellte Bilder. Quelle und Nutzungsrechte vor einer Veröffentlichung prüfen. Die Sprüche und Ortszuordnungen sind erfunden; die Fotos zeigen nicht die Stationen.</p>
+      </section>
+
       <section class="panel history-panel" aria-labelledby="history-title">
         <div class="section-heading">
           <div>
@@ -69,8 +121,9 @@
             </p>
             <p>
               Bis heute erinnern Filmvorführungen und Kieler Fankultur an die Doku und
-              ihre markanten norddeutschen Dialoge. Die folgenden Spielszenen sind
-              erfunden und keine nachgestellten Ereignisse aus Knauers Leben.
+              ihre markanten norddeutschen Dialoge. Das Spiel greift die Motive Clique,
+              Revier und Selbstdarstellung frei auf. Die Spielszenen und Sprüche sind
+              erfunden, keine Filmzitate und keine nachgestellten Ereignisse aus Knauers Leben.
             </p>
             <p class="source-links">
               Recherche:

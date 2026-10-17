@@ -26,6 +26,43 @@ const BOSS = {
   cash: 150,
   boss: true,
 };
+const DISTRICTS = [
+  { id: "ellerbek", name: "Ellerbek", scene: "Zwischen Backstein und Förde beginnt deine Runde.", stops: ["Am Werftzaun", "An der Förde", "Hinterhofrunde"], sayings: ["Erst mal um den Block. Der Rest läuft nicht weg.", "Gegenwind? Dann weißt du wenigstens, wo vorne ist.", "Große Klappe passt auch durch kleine Hinterhöfe."] },
+  { id: "wellingdorf", name: "Wellingdorf", scene: "Werftkulisse, Schwentine und ein Treffpunkt am Wasser.", stops: ["Schwentinepause", "Werftblick", "Am Treff"], sayings: ["Die Schwentine macht keinen Stress. Nimm dir ein Beispiel.", "Hier glänzt nicht alles. Muss es auch nicht.", "Kein Plan ist auch ein Plan. Nur meistens ein schlechter."] },
+  { id: "gaarden", name: "Gaarden", scene: "Durch die Straßen zum Platz und zurück an den Kiosk.", stops: ["Am Kiosk", "Auf dem Platz", "Straßenecke"], sayings: ["Am Kiosk gibt's Wechselgeld, keinen Lebensrat.", "Erst zuhören, dann den Dicken machen.", "Respekt gibt's nicht im Sonderangebot."] },
+  { id: "laboe", name: "Laboe", scene: "Promenade, Hafen und die letzte Etappe deiner Tour.", stops: ["Promenade", "Hafenpause", "Letzte Bank"], sayings: ["Bis Laboe und dann erst mal sitzen.", "Die Förde ist groß genug für mehr als eine Meinung.", "Großer Auftritt? Ich fang mit einem kleinen Spaziergang an."] },
+];
+const SCENE_IMAGES = [
+  { src: "assets/bernd-knauer-archiv-1.png", label: "Bereitgestelltes Bernd-Standbild · Gespräch" },
+  { src: "assets/bernd-knauer-archiv-2.png", label: "Bereitgestelltes Bernd-Standbild · Nahaufnahme" },
+  { src: "assets/bernd-knauer-archiv-3.png", label: "Bereitgestelltes Bernd-Standbild · Am Tisch" },
+  { src: "assets/youth-wars-gruppe.png", label: "Bereitgestelltes Gruppenbild" },
+];
+const STOPS = [{ x: 3, y: 3 }, { x: 8, y: 7 }, { x: 12, y: 3 }];
+const MAPS = [
+  ["~~~~~~~~~~~~~~~~", "~~~~~~~~~~~~~~~~", "###.####.###.###", "###..........###", "###.####.###.###", "................", "###.####.###.###", "###..........###", "###.####.###.###", "################"],
+  ["################", "###.####.###.###", "###.####.###.###", "###..........###", "###.####.###.###", "................", "###.####.###.###", "###..........###", "~~~~~~~~.~~~~~~~", "~~~~~~~~~~~~~~~~"],
+  ["################", "###..........###", "###.####.###.###", "###..........###", "###.####.###.###", "................", "###.####.###.###", "###..........###", "###.####.###.###", "################"],
+  ["~~~~~~~~~~~~~~~~", "~~~~~~~~~~~~~~~~", "~~~.~~~~.~~~.~~~", "................", "###.####.###.###", "................", "###.####.###.###", "###..........###", "###.####.###.###", "################"],
+];
+
+function newWorld() {
+  return { area: 0, x: 2, y: 5, visited: [] };
+}
+
+function loadWorld(saved) {
+  const world = newWorld();
+  if (!saved || !Number.isInteger(saved.area) || !MAPS[saved.area]) return world;
+  world.area = saved.area;
+  if (Number.isInteger(saved.x) && Number.isInteger(saved.y) && MAPS[world.area][saved.y]?.[saved.x] === ".") {
+    world.x = saved.x;
+    world.y = saved.y;
+  }
+  if (Array.isArray(saved.visited)) {
+    world.visited = [...new Set(saved.visited.filter((id) => /^[0-3]-[0-2]$/.test(id)))];
+  }
+  return world;
+}
 
 function newGame() {
   return {
@@ -39,6 +76,7 @@ function newGame() {
     equipment: { weapon: null, armor: null },
     battle: null,
     bossDefeated: false,
+    world: newWorld(),
     log: ["Bernd und seine Gang machen sich auf, das Viertel zurückzuerobern."],
   };
 }
@@ -47,7 +85,7 @@ function loadGame() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved && typeof saved === "object") {
-      return { ...newGame(), ...saved, battle: null };
+      return { ...newGame(), ...saved, world: loadWorld(saved.world), battle: null };
     }
   } catch {
     // Ignore invalid or unavailable local save data and start a fresh game.
@@ -57,6 +95,7 @@ function loadGame() {
 
 let game = loadGame();
 let guarding = false;
+let sayingIndex = 0;
 
 const byId = (id) => document.getElementById(id);
 const money = (amount) => `${amount} €`;
@@ -140,7 +179,133 @@ function render() {
   renderGear();
   renderShop();
   renderLog();
+  renderWorld();
+  renderCollection();
   saveGame();
+}
+
+function nearbyPlace() {
+  const { x, y, area } = game.world;
+  const near = (point) => Math.abs(point.x - x) + Math.abs(point.y - y) <= 1;
+  const stop = STOPS.findIndex(near);
+  if (stop !== -1) return { kind: "stop", index: stop, label: DISTRICTS[area].stops[stop] };
+  const places = [
+    { x: 5, y: 5, kind: "work", label: "Nebenjob · +20 €" },
+    { x: 10, y: 5, kind: "rest", label: "Bank · Durchatmen" },
+    { x: 8, y: 5, kind: "fight", label: "Rivalen herausfordern" },
+    { x: 0, y: 5, kind: "travel", destination: (area + 3) % 4, label: `Weiter nach ${DISTRICTS[(area + 3) % 4].name}` },
+    { x: 15, y: 5, kind: "travel", destination: (area + 1) % 4, label: `Weiter nach ${DISTRICTS[(area + 1) % 4].name}` },
+  ];
+  return places.find(near);
+}
+
+function renderWorld() {
+  const { area, x, y, visited } = game.world;
+  const district = DISTRICTS[area];
+  byId("district-name").textContent = district.name;
+  byId("district-copy").textContent = district.scene;
+  byId("world-map").className = `world-map ${district.id}`;
+  byId("world-map").setAttribute("aria-label", `${district.name}, Bernd auf Spalte ${x + 1}, Zeile ${y + 1}. Schematische Spielkarte.`);
+  const tiles = document.createDocumentFragment();
+  MAPS[area].forEach((row, tileY) => [...row].forEach((terrain, tileX) => {
+    const tile = document.createElement("span");
+    tile.className = `map-tile ${terrain === "#" ? "building" : terrain === "~" ? "water" : "street"}`;
+    tile.setAttribute("aria-hidden", "true");
+    const stop = STOPS.findIndex((point) => point.x === tileX && point.y === tileY);
+    if (stop !== -1) {
+      tile.textContent = visited.includes(`${area}-${stop}`) ? "✓" : "★";
+      tile.classList.add("map-stop");
+    }
+    if (tileY === 5) {
+      if (tileX === 0 || tileX === 15) tile.textContent = "↔";
+      if (tileX === 5) tile.textContent = "€";
+      if (tileX === 8) tile.textContent = "⚑";
+      if (tileX === 10) tile.textContent = "♥";
+    }
+    if (tileX === x && tileY === y) {
+      const portrait = document.createElement("img");
+      portrait.src = "assets/knauer-portrait.svg";
+      portrait.alt = "";
+      tile.replaceChildren(portrait);
+      tile.classList.add("player");
+    }
+    tiles.append(tile);
+  }));
+  byId("world-map").replaceChildren(tiles);
+  const place = nearbyPlace();
+  byId("world-hint").textContent = game.battle ? "Im Kampf pausiert der Spaziergang. Nutze die Kampfaktionen unten." : place ? `In Reichweite: ${place.label}. E oder „Interagieren“ drücken.` : "Folge den Wegen. Die Sterne markieren Bild- und Spruchstationen.";
+  byId("interact-button").disabled = Boolean(game.battle) || !place;
+  document.querySelectorAll("[data-travel]").forEach((button) => {
+    button.disabled = Boolean(game.battle) || Number(button.dataset.travel) === area;
+    button.setAttribute("aria-pressed", String(Number(button.dataset.travel) === area));
+  });
+  document.querySelectorAll("[data-move]").forEach((button) => { button.disabled = Boolean(game.battle); });
+}
+
+function renderCollection() {
+  byId("collection-count").textContent = `${game.world.visited.length} / 12 Stationen entdeckt`;
+  const list = byId("memory-gallery");
+  list.replaceChildren();
+  DISTRICTS.forEach((district, area) => district.stops.forEach((stop, index) => {
+    const image = SCENE_IMAGES[(area + index) % SCENE_IMAGES.length];
+    const card = document.createElement("figure");
+    card.className = "memory-card";
+    const photo = document.createElement("img");
+    photo.src = image.src;
+    photo.alt = image.label;
+    photo.loading = "lazy";
+    const caption = document.createElement("figcaption");
+    const title = document.createElement("strong");
+    title.textContent = `${game.world.visited.includes(`${area}-${index}`) ? "✓ " : ""}${district.name} · ${stop}`;
+    const saying = document.createElement("p");
+    saying.textContent = district.sayings[index];
+    const note = document.createElement("small");
+    note.textContent = `${image.label}. Fiktiver Spielspruch; keine Aufnahme dieses Ortes.`;
+    caption.append(title, saying, note);
+    card.append(photo, caption);
+    list.append(card);
+  }));
+  const sayings = DISTRICTS.flatMap((district) => district.sayings);
+  byId("bernd-saying").textContent = sayings[sayingIndex % sayings.length];
+}
+
+function moveBernd(dx, dy) {
+  if (game.battle) return;
+  const { area, x, y } = game.world;
+  if (MAPS[area][y + dy]?.[x + dx] !== ".") return;
+  game.world.x += dx;
+  game.world.y += dy;
+  renderWorld();
+  saveGame();
+}
+
+function travelTo(area) {
+  if (game.battle || !DISTRICTS[area] || area === game.world.area) return;
+  Object.assign(game.world, { area, x: 2, y: 5 });
+  addLog(`Bernd ist jetzt in ${DISTRICTS[area].name}. Die Tour geht weiter.`);
+  render();
+}
+
+function interact() {
+  if (game.battle) return;
+  const place = nearbyPlace();
+  if (!place) return;
+  if (place.kind === "travel") return travelTo(place.destination);
+  if (place.kind === "work") return earnMoney();
+  if (place.kind === "rest") return rest();
+  if (place.kind === "fight") return startBattle();
+  const { area, visited } = game.world;
+  const id = `${area}-${place.index}`;
+  sayingIndex = area * 3 + place.index;
+  if (!visited.includes(id)) {
+    visited.push(id);
+    game.cash += 5;
+    gainXp(5);
+    addLog(`${DISTRICTS[area].name} · ${place.label} entdeckt: +5 XP und +5 €. Spielspruch: ${DISTRICTS[area].sayings[place.index]}`);
+  } else {
+    addLog(`Spielszene am Ort ${place.label}: ${DISTRICTS[area].sayings[place.index]}`);
+  }
+  render();
 }
 
 function renderGear() {
@@ -311,9 +476,33 @@ byId("boss-button").addEventListener("click", () => startBattle(true));
 byId("attack-button").addEventListener("click", attack);
 byId("guard-button").addEventListener("click", guard);
 byId("escape-button").addEventListener("click", escape);
+byId("interact-button").addEventListener("click", interact);
+byId("saying-button").addEventListener("click", () => {
+  sayingIndex += 1;
+  renderCollection();
+});
+document.querySelectorAll("[data-travel]").forEach((button) => {
+  button.addEventListener("click", () => travelTo(Number(button.dataset.travel)));
+});
+document.querySelectorAll("[data-move]").forEach((button) => {
+  button.addEventListener("click", () => moveBernd(...button.dataset.move.split(",").map(Number)));
+});
+byId("world-map").addEventListener("keydown", (event) => {
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  const moves = { w: [0, -1], a: [-1, 0], s: [0, 1], d: [1, 0], arrowup: [0, -1], arrowleft: [-1, 0], arrowdown: [0, 1], arrowright: [1, 0] };
+  const key = event.key.toLowerCase();
+  if (moves[key]) {
+    event.preventDefault();
+    moveBernd(...moves[key]);
+  } else if (key === "e" || key === " ") {
+    event.preventDefault();
+    if (!event.repeat) interact();
+  }
+});
 byId("reset-button").addEventListener("click", () => {
   if (!window.confirm("Wirklich ein neues Spiel starten? Dein Spielstand wird gelöscht.")) return;
   game = newGame();
+  sayingIndex = 0;
   render();
 });
 
